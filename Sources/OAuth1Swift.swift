@@ -150,6 +150,11 @@ open class OAuth1Swift: OAuthSwift {
                 if let oauthTokenSecret=parameters["oauth_token_secret"] {
                     this.client.credential.oauthTokenSecret = oauthTokenSecret.safeStringByRemovingPercentEncoding
                 }
+
+                if let login_url = parameters["login_url"] {
+                    self?.authorizeUrl = login_url.safeStringByRemovingPercentEncoding
+                }
+
                 completion(.success((this.client.credential, response, parameters)))
             case .failure(let error):
                 completion(.failure(error))
